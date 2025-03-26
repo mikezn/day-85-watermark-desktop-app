@@ -163,46 +163,19 @@ def get_rounded_rect_points(x1, y1, x2, y2, radius):
     ]
 
 
-def rounded_rect(canvas, x1, y1, x2, y2, radius=ROUNDING_RADIUS, **kwargs):
-    """Draws a rounded rectangle with a dashed border and no fill."""
-    points = [
-        x1+radius, y1,
-        x2-radius, y1,
-        x2, y1,
-        x2, y1+radius,
-        x2, y2-radius,
-        x2, y2,
-        x2-radius, y2,
-        x1+radius, y2,
-        x1, y2,
-        x1, y2-radius,
-        x1, y1+radius,
-        x1, y1,
-    ]
-    return canvas.create_polygon(points, **kwargs, smooth=True)
-
-
 window = Tk()
 window.title = "Watermarker"
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOUR)
 
 canvas = Canvas(width=CANVAS_SIZE[0], height=CANVAS_SIZE[1], bg=BACKGROUND_COLOUR, highlightthickness=0)
 img_can = canvas.create_image(5, 5, anchor='nw')
-# polygon_id = rounded_rect(
-#     canvas,
-#     0, 0, CANVAS_SIZE[0], CANVAS_SIZE[1],
-#     radius=50,
-#     outline="#00ffcc",  # Border color
-#     width=5,            # Border thickness
-#     dash=(10, 10),       # Dotted/Dashed pattern
-#     fill=""             # No fill
-# )
 
 polygon_id = canvas.create_polygon(get_rounded_rect_points(0, 0, CANVAS_SIZE[0], CANVAS_SIZE[1], 50),
                                    outline="#00ffcc",  # Border color
                                    width=5,  # Border thickness
                                    dash=(10, 10),  # Dotted/Dashed pattern
-                                   fill=""  # No fill
+                                   fill="",# No fill
+                                   smooth=True
                                    )
 
 img_btn_upload_background = PhotoImage(file="./images/btn_upload_background.png")
